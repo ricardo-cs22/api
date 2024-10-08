@@ -31,8 +31,12 @@ app.get('/users', async (req, res) => {
 
 app.post('/user/register', async (req, res) => {
   
-
+    if (!name || !email || !password) {
+    Alert.alert('Erro', 'Por favor, preencha todos os campos corretamente!');
+    return;}
+    
   await prisma.user.create({
+    
     data: {
       email: req.body.email,
       name: req.body.name,
@@ -69,6 +73,6 @@ app.delete('/users/:id', async (req, res) => {
   })
   res.status(200).json({ message: "Usuario deletado" })
 })
-
+ 
 
 app.listen(3000)
